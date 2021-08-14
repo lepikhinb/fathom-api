@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Based\Fathom\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FathomCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'fathom';
 
     public $description = 'My command';
 

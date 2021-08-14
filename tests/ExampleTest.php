@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Based\Fathom\Tests;
 
 class ExampleTest extends TestCase
 {
