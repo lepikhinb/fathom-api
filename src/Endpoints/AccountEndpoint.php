@@ -14,11 +14,11 @@ class AccountEndpoint
 
     /**
      * Retrieve information about the account that owns the API key.
-     * 
-     * @return \Based\Fathom\Models\Account 
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     *
+     * @return \Based\Fathom\Models\Account
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     public function get()
     {

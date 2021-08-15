@@ -17,14 +17,14 @@ class EventEndpoint
 
     /**
      * Return a list of all events this site owns.
-     * 
+     *
      * @param  string  $siteId  The ID of the site you wish to load events for.
      * @param  int  $limit  A limit on the number of objects to be returned, between 1 and 100.
      * @param  bool  $next  Paginate request
      * @return EventCollection|Event[]
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     public function get(string $siteId, int $limit = 10, bool $next = false): EventCollection
     {
@@ -41,13 +41,13 @@ class EventEndpoint
 
     /**
      * Return a single event
-     * 
+     *
      * @param  string  $siteId  The ID of the site that the event belongs to. This is the same string you use in the tracking code.
      * @param  string  $eventId  The ID of the event you wish to track. You have to create this event first before sending us completions.
-     * @return \Based\Fathom\Models\Event 
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     * @return \Based\Fathom\Models\Event
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     public function getEvent(string $siteId, string $eventId): Event
     {
@@ -58,13 +58,13 @@ class EventEndpoint
 
     /**
      * Create an event
-     * 
+     *
      * @param  string  $siteId  The ID of the site you wish to create an event for.
      * @param  string  $name  The name of the webevent. Any string (up to 255 characters) is acceptable, and it doesn't have to match the webevent URL
-     * @return \Based\Fathom\Models\Event 
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     * @return \Based\Fathom\Models\Event
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     public function create(string $siteId, string $name): Event
     {
@@ -77,14 +77,14 @@ class EventEndpoint
 
     /**
      * Update an event
-     * 
+     *
      * @param  string  $siteId  The ID of the site that the event belongs to.
      * @param  string  $eventId  The ID of the event you wish to track. You have to create this event first before sending us completions.
      * @param  string  $name  The name of the webevent. Any string (up to 255 characters) is acceptable, and it doesn't have to match the webevent URL
-     * @return \Based\Fathom\Models\Event 
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     * @return \Based\Fathom\Models\Event
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     public function update(string $siteId, string $eventId, string $name): Event
     {
@@ -97,13 +97,13 @@ class EventEndpoint
 
     /**
      * Wipe all pageviews & event completions from a webevent. This would typically we used when you want to completely reset statistics or right before you launch a webevent (to remove test data).
-     * 
+     *
      * @param  string  $siteId  The ID of the site that the event belongs to.
      * @param  string  $eventId  The ID of the event you wish to wipe.
-     * @return void 
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     * @return void
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     public function wipe(string $siteId, string $eventId): void
     {
@@ -112,13 +112,13 @@ class EventEndpoint
 
     /**
      * Delete a event (careful, you can't undo this)
-     * 
+     *
      * @param  string  $siteId  The ID of the site that the event belongs to.
      * @param  string  $eventId  The ID of the event you wish to delete.
-     * @return void 
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     * @return void
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     public function delete(string $siteId, string $eventId): void
     {

@@ -37,7 +37,7 @@ test('pagination', function () {
     httpClient()->fake([
         'https://api.usefathom.com/v1/*' => function (Request $request) {
             return httpClient()->response([
-                'data' => [$request->data()['starting_after'] ? sitesDataset()[0] : sitesDataset()[1]]
+                'data' => [$request->data()['starting_after'] ? sitesDataset()[0] : sitesDataset()[1]],
             ], 200);
         },
     ]);

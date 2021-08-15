@@ -18,18 +18,18 @@ class Api
     public function __construct(
         protected string $token
     ) {
-        $this->httpClient = new HttpClient;
+        $this->httpClient = new HttpClient();
     }
 
     /**
      * Perform a POST request
-     * 
-     * @param  string  $endpoint 
-     * @param  null|array  $data 
-     * @return \Illuminate\Http\Client\Response 
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     *
+     * @param  string  $endpoint
+     * @param  null|array  $data
+     * @return \Illuminate\Http\Client\Response
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     public function post(string $endpoint, ?array $data = null): Response
     {
@@ -43,13 +43,13 @@ class Api
 
     /**
      * Perform a GET request
-     * 
-     * @param  string  $endpoint 
-     * @param  null|array  $query 
-     * @return \Illuminate\Http\Client\Response 
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     *
+     * @param  string  $endpoint
+     * @param  null|array  $query
+     * @return \Illuminate\Http\Client\Response
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     public function get(string $endpoint, ?array $query = null): Response
     {
@@ -60,12 +60,12 @@ class Api
 
     /**
      * Perform a DELETE request
-     * @param  string  $endpoint 
-     * @param  array  $data 
-     * @return \Illuminate\Http\Client\Response 
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     * @param  string  $endpoint
+     * @param  array  $data
+     * @return \Illuminate\Http\Client\Response
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     public function delete(string $endpoint, array $data = []): Response
     {
@@ -78,15 +78,15 @@ class Api
     {
         return $this->httpClient->baseUrl($this->baseUrl)
             ->withHeaders([
-                'Authorization' => "Bearer {$this->token}"
+                'Authorization' => "Bearer {$this->token}",
             ]);
     }
 
     /**
-     * @return \Illuminate\Http\Client\Response 
-     * 
-     * @throws \Based\Fathom\Exceptions\AuthenticationException 
-     * @throws \Exception 
+     * @return \Illuminate\Http\Client\Response
+     *
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     * @throws \Exception
      */
     protected function response(): Response
     {
@@ -94,7 +94,7 @@ class Api
             throw new AuthenticationException($this->latestResponse->body());
         }
 
-        if (!$this->latestResponse->successful()) {
+        if (! $this->latestResponse->successful()) {
             throw new Exception($this->latestResponse->body());
         }
 
