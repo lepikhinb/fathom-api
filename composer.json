@@ -1,6 +1,6 @@
 {
     "name": "based/fathom",
-    "description": "This is my package Fathom",
+    "description": "Fathom Analytics API PHP Client",
     "keywords": [
         "laravel",
         "fathom analytics",
