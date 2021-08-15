@@ -6,9 +6,9 @@ use Based\Fathom\Fathom as FathomManager;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Based\Fathom\Endpoints\AccountEndpoint account
- * @method static \Based\Fathom\Endpoints\EventEndpoint events
- * @method static \Based\Fathom\Endpoints\SiteEndpoint sites
+ * @method static \Based\Fathom\Endpoints\AccountEndpoint account()
+ * @method static \Based\Fathom\Endpoints\EventEndpoint events()
+ * @method static \Based\Fathom\Endpoints\SiteEndpoint sites()
  *
  * @see \Based\Fathom\Fathom
  */
