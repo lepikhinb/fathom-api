@@ -1,44 +1,96 @@
-# This is my package Fathom
+# Fathom Analytics PHP API Client
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/based/fathom.svg?style=flat-square)](https://packagist.org/packages/based/fathom)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/based/fathom/run-tests?label=tests)](https://github.com/lepikhinb/fathom-api/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/based/fathom/Check%20&%20fix%20styling?label=code%20style)](https://github.com/lepikhinb/fathom-api/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/lepikhinb/fathom-api/run-tests?label=tests)](https://github.com/lepikhinb/fathom-api/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/based/fathom.svg?style=flat-square)](https://packagist.org/packages/based/fathom)
 
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
-
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this fathom
-2. Run "./configure-fathom.sh" to run a script that will replace all placeholders throughout all the files
-3. Remove this block of text.
-4. Have fun creating your package.
-5. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/fathom.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/fathom)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+This package is a wrapper for the newly released [Fathom Analytics](https://usefathom.com/) API. The package is in **wip** mode as the API is still in early access.
 
 ## Installation
 
-You can install the package via composer:
+This version supports PHP 8.0. You can install the package via composer:
 
 ```bash
 composer require based/fathom
 ```
 
-You can publish and run the migrations with:
+## Usage
+### Account
+```php
+<?php
 
-```bash
-php artisan vendor:publish --provider="Based\Fathom\FathomServiceProvider" --tag="fathom-migrations"
-php artisan migrate
+$fathom = new Fathom('token');
+
+$fathom->account();
 ```
+
+### Sites
+```php
+<?php
+
+$fathom = new Fathom('token');
+
+$fathom->sites()->get(
+    limit: 10,          // A limit on the number of objects to be returned, between 1 and 100
+    next: true          // Paginate requests
+);
+
+$fathom->sites()->getSite(
+    siteId: 'BASED',    // The ID of the site you wish to load
+);
+
+$fathom->sites()->create(
+    name: 'purple-peak',
+    sharing: 'private', // The sharing configuration. Supported values are: `none`, `private` or `public`. Default: `none`
+    password: 'secret', // When sharing is set to private, you must also send a password to access the site with.
+);
+
+$fathom->sites()->update(
+    siteId: 'BASED',
+    name: 'purple-peak',
+    sharing: Sharing::NONE,
+    password: 'secret',
+);
+
+// Wipe all pageviews & event completions from a website
+$fathom->sites()->wipe($siteId);
+
+$fathom->sites()->delete($siteId);
+```
+
+### Events
+```php
+<?php
+
+$fathom = new Fathom('token');
+
+$fathom->events()->get(
+    siteId: 'BASED',    // The ID of the site you wish to load events for
+    limit: 10,          // A limit on the number of objects to be returned, between 1 and 100
+    next: true          // Paginate requests
+);
+
+$fathom->events()->getEvent($siteId, $eventId);
+
+$fathom->sites()->create(
+    siteId: 'purple-peak',
+    name: 'Purchase early access',
+);
+
+$fathom->sites()->update(
+    siteId: 'BASED',
+    eventId: 'purchase-early-access',
+    name: 'Purchase early access (live)',
+);
+
+// Wipe all pageviews & event completions from a webevent
+$fathom->sites()->wipe($siteId, $eventId);
+
+$fathom->sites()->delete($siteId, $eventId);
+```
+
+## Laravel
+This package contains a facade and a config file for Laravel applications.
 
 You can publish the config file with:
 ```bash
@@ -49,14 +101,32 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'token' => env('FATHOM_TOKEN'),
 ];
 ```
 
-## Usage
+Update the config file directly, or set the environment variable `FATHOM_TOKEN` to your API key (*preferred*).
 
+### Example
+Example using a facade:
 ```php
-$fathom = new Based\Fathom();
-echo $fathom->echoPhrase('Hello, Spatie!');
+<?php
+
+use Based\Fathom\Facade\Fathom;
+
+Fathom::account()->get();
+Fathom::sites()->get();
+Fathom::sites()->create(...);
+```
+
+Or create an instance directly:
+```php
+<?php
+
+use Based\Fathom\Fathom;
+
+$fathom = new Fathom(config('fathom.token'));
+$fathom->account()->get();
 ```
 
 ## Testing
@@ -65,17 +135,8 @@ echo $fathom->echoPhrase('Hello, Spatie!');
 composer test
 ```
 
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+## Todo
+- [ ] Reports
 
 ## Credits
 
