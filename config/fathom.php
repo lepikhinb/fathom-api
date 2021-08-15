@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'key' => env('FATHOM_TOKEN'),
+    'token' => env('FATHOM_TOKEN'),
 ];

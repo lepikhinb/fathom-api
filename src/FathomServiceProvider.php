@@ -11,7 +11,7 @@ class FathomServiceProvider extends PackageServiceProvider
     {
         parent::register();
 
-        $this->app->bind(Fathom::class, function ($app) {
+        $this->app->bind(Fathom::class, function () {
             return new Fathom(config('fathom.token'));
         });
     }
