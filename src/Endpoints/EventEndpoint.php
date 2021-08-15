@@ -34,7 +34,7 @@ class EventEndpoint
         ])->json('data');
 
         $collection = new EventCollection($data);
-        $this->cursor = $collection->last()->id;
+        $this->cursor = $collection->last()?->id;
 
         return $collection;
     }

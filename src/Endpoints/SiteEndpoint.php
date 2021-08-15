@@ -36,7 +36,7 @@ class SiteEndpoint
         ])->json('data');
 
         $collection = new SiteCollection($data);
-        $this->cursor = $collection->last()->id;
+        $this->cursor = $collection->last()?->id;
 
         return $collection;
     }

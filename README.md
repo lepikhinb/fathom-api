@@ -35,7 +35,7 @@ $fathom->sites()->get(
     next: true          // Paginate requests
 );
 
-$fathom->sites()->getSite(
+$site = $fathom->sites()->getSite(
     siteId: 'BASED',    // The ID of the site you wish to load
 );
 
@@ -137,6 +137,7 @@ composer test
 
 ## Todo
 - [ ] Reports
+- [ ] Fluent interface `$fathom->sites()->getSite('id')->update(...)`
 
 ## Credits
 
