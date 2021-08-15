@@ -72,21 +72,21 @@ $fathom->events()->get(
 
 $fathom->events()->getEvent($siteId, $eventId);
 
-$fathom->sites()->create(
+$fathom->events()->create(
     siteId: 'purple-peak',
     name: 'Purchase early access',
 );
 
-$fathom->sites()->update(
+$fathom->events()->update(
     siteId: 'BASED',
     eventId: 'purchase-early-access',
     name: 'Purchase early access (live)',
 );
 
 // Wipe all pageviews & event completions from a webevent
-$fathom->sites()->wipe($siteId, $eventId);
+$fathom->events()->wipe($siteId, $eventId);
 
-$fathom->sites()->delete($siteId, $eventId);
+$fathom->events()->delete($siteId, $eventId);
 ```
 
 ## Laravel
