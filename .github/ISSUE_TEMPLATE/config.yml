@@ -1,11 +1,11 @@
 blank_issues_enabled: false
 contact_links:
     - name: Ask a question
-      url: https://github.com/based/fathom/discussions/new?category=q-a
+      url: https://github.com/lepikhinb/fathom-api/discussions/new?category=q-a
       about: Ask the community for help
     - name: Request a feature
-      url: https://github.com/based/fathom/discussions/new?category=ideas
+      url: https://github.com/lepikhinb/fathom-api/discussions/new?category=ideas
       about: Share ideas for new features
     - name: Report a bug
-      url: https://github.com/based/fathom/issues/new
+      url: https://github.com/lepikhinb/fathom-api/issues/new
       about: Report a reproducable bug

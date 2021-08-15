@@ -1,5 +1,5 @@
 <?php
-// config for Based/ClassName
-return [
 
+return [
+    'key' => env('FATHOM_TOKEN'),
 ];
