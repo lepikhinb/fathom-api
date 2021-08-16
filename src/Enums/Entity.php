@@ -2,7 +2,7 @@
 
 namespace Based\Fathom\Enums;
 
-class EntityType extends Enum
+class Entity extends Enum
 {
     public const PAGEVIEW = 'pageview';
     public const EVENT = 'event';

@@ -5,7 +5,7 @@ namespace Based\Fathom\Endpoints;
 use Based\Fathom\Api;
 use Based\Fathom\Enums\Aggregate;
 use Based\Fathom\Enums\DateInterval;
-use Based\Fathom\Enums\EntityType;
+use Based\Fathom\Enums\Entity;
 use Based\Fathom\Enums\FilterOperator;
 use Based\Fathom\Enums\FilterProperty;
 use Based\Fathom\Enums\Group;
@@ -31,8 +31,13 @@ class ReportEndpoint
     protected array $filters = [];
 
     public function __construct(
-        protected Api $api
+        protected Api $api,
+        null|string|Site|Event $entity = null,
+        ?string $entityId = null
     ) {
+        if ($entity) {
+            $this->for($entity, $entityId);
+        }
     }
 
     /**
@@ -48,20 +53,20 @@ class ReportEndpoint
     public function for(string|Site|Event $entity, ?string $entityId = null): self
     {
         if ($entity instanceof Site) {
-            $this->entity = EntityType::PAGEVIEW;
+            $this->entity = Entity::PAGEVIEW;
             $this->entityId = $entity->id;
 
             return $this;
         }
 
         if ($entity instanceof Event) {
-            $this->entity = EntityType::EVENT;
+            $this->entity = Entity::EVENT;
             $this->entityId = $entity->id;
 
             return $this;
         }
 
-        if (!in_array($entity, EntityType::values())) {
+        if (!in_array($entity, Entity::values())) {
             throw new IncorrectValueException('Incorrect entity type specified');
         }
 
@@ -106,7 +111,7 @@ class ReportEndpoint
      */
     public function interval(string $interval): self
     {
-        if (!in_array($interval, [])) {
+        if (!in_array($interval, DateInterval::values())) {
             throw new IncorrectValueException('Incorrect date interval specified');
         }
 
@@ -280,7 +285,7 @@ class ReportEndpoint
     }
 
     /**
-     * Sort results by a field
+     * Order results by a field
      * 
      * @param  string  $field 
      * @param  bool  $descending 
@@ -288,7 +293,7 @@ class ReportEndpoint
      * 
      * @throws \Based\Fathom\Exceptions\IncorrectValueException 
      */
-    public function sortBy(string $field, bool $descending = false): self
+    public function orderBy(string $field, bool $descending = false): self
     {
         if (!in_array($field, ['timestamp'] + Group::values() + Aggregate::values())) {
             throw new IncorrectValueException('Incorrect sort field specified');
@@ -304,7 +309,7 @@ class ReportEndpoint
      * 
      * @param  null|string|\Based\Fathom\Models\Site|\Based\Fathom\Models\Event  $entity 
      * @param  null|string  $entityId 
-     * @param  null|string  $aggregates 
+     * @param  null|string|array  $aggregates 
      * @return array 
      * 
      * @throws \Based\Fathom\Exceptions\IncorrectValueException 
@@ -312,7 +317,7 @@ class ReportEndpoint
      * @throws \Based\Fathom\Exceptions\AuthenticationException 
      * @throws \Exception 
      */
-    public function get(null|string|Site|Event $entity = null, ?string $entityId = null, ?string $aggregates): array
+    public function get(string|Site|Event|null $entity = null, ?string $entityId = null, string|array|null $aggregates = null): array
     {
         if ($entity) {
             $this->for($entity, $entityId);
@@ -358,17 +363,17 @@ class ReportEndpoint
      * 
      * @throws \Based\Fathom\Exceptions\MissingValueException 
      */
-    protected function validate(): void
+    public function validate(): void
     {
-        if (!$this->entity) {
+        if (!isset($this->entity)) {
             throw new MissingValueException('Entity type is missing');
         }
 
-        if (!$this->entityId) {
+        if (!isset($this->entityId)) {
             throw new MissingValueException('Entity ID is missing');
         }
 
-        if (!$this->aggregates) {
+        if (!isset($this->aggregates)) {
             throw new MissingValueException('Aggregate field is missing');
         }
     }

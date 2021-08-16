@@ -6,6 +6,8 @@ use Based\Fathom\Endpoints\AccountEndpoint;
 use Based\Fathom\Endpoints\EventEndpoint;
 use Based\Fathom\Endpoints\ReportEndpoint;
 use Based\Fathom\Endpoints\SiteEndpoint;
+use Based\Fathom\Models\Event;
+use Based\Fathom\Models\Site;
 
 class Fathom
 {
@@ -35,8 +37,8 @@ class Fathom
         return $this->events ??= new EventEndpoint($this->api);
     }
 
-    public function reports(): ReportEndpoint
+    public function reports(null|string|Site|Event $entity = null, ?string $entityId = null): ReportEndpoint
     {
-        return $this->reports ??= new ReportEndpoint($this->api);
+        return $this->reports ??= new ReportEndpoint($this->api, $entity, $entityId);
     }
 }
