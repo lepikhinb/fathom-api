@@ -72,11 +72,11 @@ class SiteEndpoint
      */
     public function create(string $name, ?string $sharing = null, ?string $password = null): Site
     {
-        if ($sharing === Sharing::PRIVATE && !$password) {
+        if ($sharing === Sharing::PRIVATE && ! $password) {
             throw new MissingValueException('You must specify a password for a private shared site');
         }
 
-        if ($sharing && !in_array($sharing, Sharing::values())) {
+        if ($sharing && ! in_array($sharing, Sharing::values())) {
             throw new IncorrectValueException('Incorrect sharing option specified');
         }
 
@@ -105,11 +105,11 @@ class SiteEndpoint
      */
     public function update(string $siteid, ?string $name = null, ?string $sharing = null, ?string $password = null): Site
     {
-        if ($sharing === Sharing::PRIVATE && !$password) {
+        if ($sharing === Sharing::PRIVATE && ! $password) {
             throw new MissingValueException('You must specify a password for a private shared site');
         }
 
-        if ($sharing && !in_array($sharing, Sharing::values())) {
+        if ($sharing && ! in_array($sharing, Sharing::values())) {
             throw new IncorrectValueException('Incorrect sharing option specified');
         }
 

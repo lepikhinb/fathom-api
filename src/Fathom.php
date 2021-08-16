@@ -37,7 +37,7 @@ class Fathom
         return $this->events ??= new EventEndpoint($this->api);
     }
 
-    public function reports(null|string|Site|Event $entity = null, ?string $entityId = null): ReportEndpoint
+    public function reports(null | string | Site | Event $entity = null, ?string $entityId = null): ReportEndpoint
     {
         return $this->reports ??= new ReportEndpoint($this->api, $entity, $entityId);
     }
