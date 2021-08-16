@@ -329,8 +329,7 @@ class ReportEndpoint
 
         $this->validate();
 
-        return $this->api->get('aggregations', $this->query())
-            ->json('data');
+        return $this->api->get('aggregations', $this->query())->json();
     }
 
     /**
