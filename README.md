@@ -171,8 +171,7 @@ composer test
 ```
 
 ## Todo
-- [ ] Reports
-- [ ] Fluent interface `$fathom->sites()->getSite('id')->update(...)`
+- [ ] Current visitors
 
 ## Credits
 
