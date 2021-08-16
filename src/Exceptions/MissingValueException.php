@@ -4,7 +4,7 @@ namespace Based\Fathom\Exceptions;
 
 use Exception;
 
-class IncorrectSharingException extends Exception
+class MissingValueException extends Exception
 {
     //
 }

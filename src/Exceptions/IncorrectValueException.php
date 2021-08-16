@@ -4,7 +4,7 @@ namespace Based\Fathom\Exceptions;
 
 use Exception;
 
-class MissingPasswordException extends Exception
+class IncorrectValueException extends Exception
 {
     //
 }

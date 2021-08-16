@@ -4,6 +4,7 @@ namespace Based\Fathom;
 
 use Based\Fathom\Endpoints\AccountEndpoint;
 use Based\Fathom\Endpoints\EventEndpoint;
+use Based\Fathom\Endpoints\ReportEndpoint;
 use Based\Fathom\Endpoints\SiteEndpoint;
 
 class Fathom
@@ -12,6 +13,7 @@ class Fathom
     protected AccountEndpoint $account;
     protected SiteEndpoint $sites;
     protected EventEndpoint $events;
+    protected ReportEndpoint $reports;
 
     public function __construct(string $token)
     {
@@ -31,5 +33,10 @@ class Fathom
     public function events(): EventEndpoint
     {
         return $this->events ??= new EventEndpoint($this->api);
+    }
+
+    public function reports(): ReportEndpoint
+    {
+        return $this->reports ??= new ReportEndpoint($this->api);
     }
 }

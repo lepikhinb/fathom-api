@@ -5,8 +5,8 @@ namespace Based\Fathom\Endpoints;
 use Based\Fathom\Api;
 use Based\Fathom\Collections\SiteCollection;
 use Based\Fathom\Enums\Sharing;
-use Based\Fathom\Exceptions\IncorrectSharingException;
-use Based\Fathom\Exceptions\MissingPasswordException;
+use Based\Fathom\Exceptions\IncorrectValueException;
+use Based\Fathom\Exceptions\MissingValueException;
 use Based\Fathom\Models\Site;
 
 class SiteEndpoint
@@ -65,19 +65,19 @@ class SiteEndpoint
      * @param  null|string  $password  When sharing is set to private, you must also send a password to access the site with.
      * @return \Based\Fathom\Models\Site
      *
-     * @throws \Based\Fathom\Exceptions\MissingPasswordException
-     * @throws \Based\Fathom\Exceptions\IncorrectSharingException
+     * @throws \Based\Fathom\Exceptions\MissingValueException
+     * @throws \Based\Fathom\Exceptions\IncorrectValueException
      * @throws \Based\Fathom\Exceptions\AuthenticationException
      * @throws \Exception
      */
     public function create(string $name, ?string $sharing = null, ?string $password = null): Site
     {
-        if ($sharing === Sharing::PRIVATE && ! $password) {
-            throw new MissingPasswordException('You must specify a password for a private shared site');
+        if ($sharing === Sharing::PRIVATE && !$password) {
+            throw new MissingValueException('You must specify a password for a private shared site');
         }
 
-        if ($sharing && ! in_array($sharing, Sharing::values())) {
-            throw new IncorrectSharingException('Incorrect sharing option specified');
+        if ($sharing && !in_array($sharing, Sharing::values())) {
+            throw new IncorrectValueException('Incorrect sharing option specified');
         }
 
         $data = $this->api->post('sites', [
@@ -98,19 +98,19 @@ class SiteEndpoint
      * @param  null|string  $password  When sharing is set to private, you must also send a password to access the site with.
      * @return \Based\Fathom\Models\Site
      *
-     * @throws \Based\Fathom\Exceptions\MissingPasswordException
-     * @throws \Based\Fathom\Exceptions\IncorrectSharingException
+     * @throws \Based\Fathom\Exceptions\MissingValueException
+     * @throws \Based\Fathom\Exceptions\IncorrectValueException
      * @throws \Based\Fathom\Exceptions\AuthenticationException
      * @throws \Exception
      */
     public function update(string $siteid, ?string $name = null, ?string $sharing = null, ?string $password = null): Site
     {
-        if ($sharing === Sharing::PRIVATE && ! $password) {
-            throw new MissingPasswordException('You must specify a password for a private shared site');
+        if ($sharing === Sharing::PRIVATE && !$password) {
+            throw new MissingValueException('You must specify a password for a private shared site');
         }
 
-        if ($sharing && ! in_array($sharing, Sharing::values())) {
-            throw new IncorrectSharingException('Incorrect sharing option specified');
+        if ($sharing && !in_array($sharing, Sharing::values())) {
+            throw new IncorrectValueException('Incorrect sharing option specified');
         }
 
         $data = $this->api->post("sites/$siteid", [
