@@ -25,8 +25,8 @@ class ReportEndpoint
     protected ?string $dateGrouping = null;
     protected ?string $fieldGrouping = null;
     protected ?string $timezone = null;
-    protected ?int $dateFrom = null;
-    protected ?int $dateTo = null;
+    protected ?string $dateFrom = null;
+    protected ?string $dateTo = null;
     protected ?string $sortBy = null;
     protected array $filters = [];
 
@@ -66,11 +66,11 @@ class ReportEndpoint
             return $this;
         }
 
-        if (! in_array($entity, Entity::values())) {
+        if (!in_array($entity, Entity::values())) {
             throw new IncorrectValueException('Incorrect entity type specified');
         }
 
-        if (! $entityId) {
+        if (!$entityId) {
             throw new MissingValueException('Entity ID is missing');
         }
 
@@ -111,7 +111,7 @@ class ReportEndpoint
      */
     public function interval(string $interval): self
     {
-        if (! in_array($interval, DateInterval::values())) {
+        if (!in_array($interval, DateInterval::values())) {
             throw new IncorrectValueException('Incorrect date interval specified');
         }
 
@@ -178,7 +178,7 @@ class ReportEndpoint
      */
     public function groupBy(string $field): self
     {
-        if (! in_array($field, Group::values())) {
+        if (!in_array($field, Group::values())) {
             throw new IncorrectValueException('Incorrect group field specified');
         }
 
@@ -211,7 +211,7 @@ class ReportEndpoint
      */
     public function from(string | DateTimeInterface $date): self
     {
-        $this->dateFrom = Carbon::parse($date)->getTimestamp();
+        $this->dateFrom = Carbon::parse($date)->format('Y-m-d H:i:s');
 
         return $this;
     }
@@ -226,7 +226,7 @@ class ReportEndpoint
      */
     public function to(string | DateTimeInterface $date): self
     {
-        $this->dateTo = Carbon::parse($date)->getTimestamp();
+        $this->dateTo = Carbon::parse($date)->format('Y-m-d H:i:s');
 
         return $this;
     }
@@ -257,7 +257,7 @@ class ReportEndpoint
      */
     public function where(string $property, string $operator, string $value = null): self
     {
-        if (! in_array($property, FilterProperty::values())) {
+        if (!in_array($property, FilterProperty::values())) {
             throw new IncorrectValueException('Incorrect filter property specified');
         }
 
@@ -271,7 +271,7 @@ class ReportEndpoint
             default => $operator
         };
 
-        if (! in_array($operator, FilterOperator::values())) {
+        if (!in_array($operator, FilterOperator::values())) {
             throw new IncorrectValueException('Incorrect filter operator specified');
         }
 
@@ -295,7 +295,7 @@ class ReportEndpoint
      */
     public function orderBy(string $field, bool $descending = false): self
     {
-        if (! in_array($field, ['timestamp'] + Group::values() + Aggregate::values())) {
+        if (!in_array($field, ['timestamp'] + Group::values() + Aggregate::values())) {
             throw new IncorrectValueException('Incorrect sort field specified');
         }
 
@@ -364,15 +364,15 @@ class ReportEndpoint
      */
     public function validate(): void
     {
-        if (! isset($this->entity)) {
+        if (!isset($this->entity)) {
             throw new MissingValueException('Entity type is missing');
         }
 
-        if (! isset($this->entityId)) {
+        if (!isset($this->entityId)) {
             throw new MissingValueException('Entity ID is missing');
         }
 
-        if (! isset($this->aggregates)) {
+        if (!isset($this->aggregates)) {
             throw new MissingValueException('Aggregate field is missing');
         }
     }

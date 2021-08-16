@@ -87,8 +87,8 @@ test('query builder', function () {
 
     assertEquals('pageview', $query['entity']);
     assertEquals('visits,uniques', $query['aggregates']);
-    assertEquals($dateFrom->getTimestamp(), $query['date_from']);
-    assertEquals($dateTo->getTimestamp(), $query['date_to']);
+    assertEquals($dateFrom->format('Y-m-d H:i:s'), $query['date_from']);
+    assertEquals($dateTo->format('Y-m-d H:i:s'), $query['date_to']);
     assertEquals('hour', $query['date_grouping']);
     assertEquals('hostname', $query['field_grouping']);
     assertEquals('UTC', $query['timezone']);
