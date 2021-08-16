@@ -89,6 +89,41 @@ $fathom->events()->wipe($siteId, $eventId);
 $fathom->events()->delete($siteId, $eventId);
 ```
 
+### Aggregation
+Generate an aggregation. This is effectively an unbelievably flexible report that allows you to group on any fields you wish, and filter them at your leisure.
+```php
+<?php
+
+$fathom = new Fathom('token');
+
+$fathom->reports()
+    ->for('pageview', 'CNODFN')
+    ->aggregate(['visits', 'uniques'])
+    ->between($dateFrom, $dateTo)
+    ->interval('hour')
+    ->groupBy('hostname')
+    ->timezone('UTC')
+    ->orderBy('visits', true)
+    ->where('device', '!=', 'iPhone')
+    ->where('hostname', '<>', 'google.com')
+    ->get();
+
+$fathom->reports()->for(Entity::PAGEVIEW, 'CNODFN');
+
+// or
+$site = $fathom->sites()->get()->first();
+$fathom->reports($site)->get(
+    aggregate: Aggregate::PAGEVIEW
+);
+
+// or
+$site = $fathom->sites()->get()->first();
+$fathom->reports()->get(
+    entity: $site,
+    aggregate: Aggregate::PAGEVIEW
+);
+```
+
 ## Laravel
 This package contains a facade and a config file for Laravel applications.
 
