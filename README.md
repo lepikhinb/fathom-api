@@ -99,13 +99,13 @@ $fathom = new Fathom('token');
 $fathom->reports()
     ->for('pageview', 'CNODFN')
     ->aggregate(['visits', 'uniques'])
-    ->between($dateFrom, $dateTo)
+    ->between(now()->subMonth()->startOfDay(), now())
     ->interval('hour')
-    ->groupBy('hostname')
     ->timezone('UTC')
-    ->orderBy('visits', true)
     ->where('device', '!=', 'iPhone')
     ->where('hostname', '<>', 'google.com')
+    ->groupBy('hostname')
+    ->orderBy('visits', true)
     ->get();
 
 $fathom->reports()->for(Entity::PAGEVIEW, 'CNODFN');
@@ -113,14 +113,14 @@ $fathom->reports()->for(Entity::PAGEVIEW, 'CNODFN');
 // or
 $site = $fathom->sites()->get()->first();
 $fathom->reports($site)->get(
-    aggregate: Aggregate::PAGEVIEW
+    aggregate: Aggregate::VISITS
 );
 
 // or
 $site = $fathom->sites()->get()->first();
 $fathom->reports()->get(
     entity: $site,
-    aggregate: Aggregate::PAGEVIEW
+    aggregate: Aggregate::VISITS
 );
 ```
 

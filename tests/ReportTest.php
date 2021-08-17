@@ -40,10 +40,6 @@ test('pass entity to constructor', function () {
 });
 
 test('report for an event', function () {
-    httpClient()->fake([
-        'https://api.usefathom.com/v1/*' => httpClient()->response(['data' => []], 200),
-    ]);
-
     $event = new Event('test', 'test');
 
     $request = fathom()->reports()->for($event)->aggregate(Aggregate::VISITS);
@@ -56,10 +52,6 @@ test('report for an event', function () {
 });
 
 test('report for an arbitrary entity', function () {
-    httpClient()->fake([
-        'https://api.usefathom.com/v1/*' => httpClient()->response(['data' => []], 200),
-    ]);
-
     $request = fathom()->reports()->for('pageview', 'test')->aggregate(Aggregate::VISITS);
     $request->get();
 
