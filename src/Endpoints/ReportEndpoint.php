@@ -29,6 +29,7 @@ class ReportEndpoint
     protected ?string $dateTo = null;
     protected ?string $sortBy = null;
     protected array $filters = [];
+    protected ?int $limit = null;
 
     public function __construct(
         protected Api $api,
@@ -305,6 +306,17 @@ class ReportEndpoint
     }
 
     /**
+     * @param int $limit
+     * @return $this
+     */
+    public function limit(int $limit): self
+    {
+        $this->limit = $limit;
+
+        return $this;
+    }
+
+    /**
      * Get results
      *
      * @param  null|string|\Based\Fathom\Models\Site|\Based\Fathom\Models\Event  $entity
@@ -350,6 +362,7 @@ class ReportEndpoint
             'date_to' => $this->dateTo,
             'sort_by' => $this->sortBy,
             'filters' => $this->filters,
+            'limit' => $this->limit,
         ])
             ->whereNotNull()
             ->toArray();
