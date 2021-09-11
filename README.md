@@ -106,6 +106,7 @@ $fathom->reports()
     ->where('hostname', '<>', 'google.com')
     ->groupBy('hostname')
     ->orderBy('visits', true)
+    ->limit(10)
     ->get();
 
 $fathom->reports()->for(Entity::PAGEVIEW, 'CNODFN');
