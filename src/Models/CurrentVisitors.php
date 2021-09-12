@@ -7,5 +7,6 @@ class CurrentVisitors
     public function __construct(
         public string $total,
         public array $content = []
-    ) {}
+    ) {
+    }
 }

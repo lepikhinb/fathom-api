@@ -162,8 +162,8 @@ class SiteEndpoint
     public function getCurrentVisitors(string $siteId, bool $detailed = false): CurrentVisitors
     {
         $data = $this->api->get('current_visitors', [
-            'site_id'  => $siteId,
-            'detailed' => $detailed
+            'site_id' => $siteId,
+            'detailed' => $detailed,
         ])->json();
 
         return new CurrentVisitors(...$data);
