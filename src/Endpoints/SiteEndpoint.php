@@ -7,6 +7,7 @@ use Based\Fathom\Collections\SiteCollection;
 use Based\Fathom\Enums\Sharing;
 use Based\Fathom\Exceptions\IncorrectValueException;
 use Based\Fathom\Exceptions\MissingValueException;
+use Based\Fathom\Models\CurrentVisitors;
 use Based\Fathom\Models\Site;
 
 class SiteEndpoint
@@ -148,5 +149,23 @@ class SiteEndpoint
     public function delete(string $siteid): void
     {
         $this->api->delete("sites/$siteid");
+    }
+
+    /**
+     * Get
+     *
+     * @param string $siteId
+     * @param bool $detailed
+     * @return mixed
+     * @throws \Based\Fathom\Exceptions\AuthenticationException
+     */
+    public function getCurrentVisitors(string $siteId, bool $detailed = false): CurrentVisitors
+    {
+        $data = $this->api->get('current_visitors', [
+            'site_id'  => $siteId,
+            'detailed' => $detailed
+        ])->json();
+
+        return new CurrentVisitors(...$data);
     }
 }

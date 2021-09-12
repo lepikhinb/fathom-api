@@ -125,6 +125,11 @@ $fathom->reports()->get(
 );
 ```
 
+### Get Current Visitors
+```
+$fathom->sites()->getCurrentVisitors('XXXXX');
+```
+
 ## Laravel
 This package contains a facade and a config file for Laravel applications.
 
@@ -170,9 +175,6 @@ $fathom->account()->get();
 ```bash
 composer test
 ```
-
-## Todo
-- [ ] Current visitors
 
 ## Credits
 
